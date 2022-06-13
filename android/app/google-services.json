@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "252158878235",
+    "firebase_url": "https://altonik-32f1a-default-rtdb.firebaseio.com",
+    "project_id": "altonik-32f1a",
+    "storage_bucket": "altonik-32f1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252158878235:android:15001c4a730f77fec78ebe",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_altonik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252158878235-hsinr5gjl5bcrfjhnh7159t0m670hmie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsu6BNRN_XQc7PW94uQwiYRN1vhS05-GE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252158878235-hsinr5gjl5bcrfjhnh7159t0m670hmie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
