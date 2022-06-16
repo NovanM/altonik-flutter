@@ -41,7 +41,7 @@ Widget doughnatChart(String name, double width, double height, int value) {
           CircularChartAnnotation(
             widget: Container(
               child: Text(
-                currentDataVol.toInt().toString() + "%",
+                currentDataVol.toInt().toString() + "%" ?? "%",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 24,

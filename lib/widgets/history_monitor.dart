@@ -1,10 +1,6 @@
 part of 'widget.dart';
 
-Widget history(String imagePath, String title, String counterDate,
-    {value = false}) {
-  DateTime now = DateTime.now();
-  String date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
-
+Widget history(String imagePath, String title, String counterDate) {
   return Container(
     width: double.infinity,
     height: 70,
@@ -27,15 +23,10 @@ Widget history(String imagePath, String title, String counterDate,
             ),
             Row(
               children: [
-                value
-                    ? Text(
-                        date,
-                        style: TextStyle(fontSize: 16),
-                      )
-                    : Text(
-                        counterDate,
-                        style: TextStyle(fontSize: 16),
-                      )
+                Text(
+                  counterDate ?? "",
+                  style: TextStyle(fontSize: 16),
+                )
               ],
             )
           ],

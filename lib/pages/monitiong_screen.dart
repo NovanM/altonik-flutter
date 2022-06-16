@@ -1,7 +1,8 @@
 part of 'pages.dart';
 
 class Monitoring extends StatefulWidget {
-  const Monitoring({Key key}) : super(key: key);
+  final DatabaseReference databaseReference;
+  const Monitoring({Key key, this.databaseReference}) : super(key: key);
 
   @override
   State<Monitoring> createState() => _MonitoringState();
@@ -12,14 +13,12 @@ class _MonitoringState extends State<Monitoring> {
   @override
   void initState() {
     super.initState();
-    _dbref = FirebaseDatabase.instance.reference();
-    _readDB_onechild();
+    // _readDB_onechild();
     // _read_once();
     // oneChange();
     dataChange();
   }
 
-  DatabaseReference _dbref;
   String databasejson = '';
   var nutrisi;
   var nutrisiA;
@@ -31,10 +30,10 @@ class _MonitoringState extends State<Monitoring> {
   var volumeTandon;
   var kuras;
   var afterKuras;
-
+  var isDone = 5;
   // ignore: non_constant_identifier_names
   _readDB_onechild() {
-    _dbref
+    widget.databaseReference
         .child("monitoring")
         .child("sensorsatu")
         .once()
@@ -46,48 +45,22 @@ class _MonitoringState extends State<Monitoring> {
     });
   }
 
-  // ignore: non_constant_identifier_names
-  // ignore: unused_element
-  _read_once() {
-    _dbref.once().then((DataSnapshot dataSnapshot) {
-      print("read once" + dataSnapshot.value);
-      setState(() {
-        databasejson = dataSnapshot.value.toString();
-      });
-    });
-  }
-
-  void oneChange() {
-    _dbref
-        .child('monitoring')
-        .child('sensorsatu')
-        .onValue
-        .listen((Event event) {
-      int data = event.snapshot.value;
-
-      print('weight data: $data');
-      setState(() {
-        suhu = data;
-      });
-    });
-  }
-
   void dataChange() {
-    _dbref.child('monitoring').onValue.listen((event) {
+    widget.databaseReference.child('monitoring').onValue.listen((event) {
       print(event.snapshot.value.toString());
-      Map data = event.snapshot.value;
-      data.forEach((key, value) {
+      Map dataku = event.snapshot.value;
+      dataku.forEach((key, value) {
         setState(() {
-          nutrisi = data['nutrisi'];
-          nutrisiA = data['nutrisi_a'];
-          nutrisiB = data['nutrisi_b'];
-          ph = data['ph'];
-          phDown = data['ph_down'];
-          phUP = data['ph_up'];
-          suhu = data['suhu'];
-          volumeTandon = data['vol_tandon'];
-          kuras = data['kuras'];
-          afterKuras = data['after_kuras'];
+          nutrisi = dataku['nutrisi'];
+          nutrisiA = dataku['nutrisi_a'];
+          nutrisiB = dataku['nutrisi_b'];
+          ph = dataku['ph'];
+          phDown = dataku['ph_down'];
+          phUP = dataku['ph_up'];
+          suhu = dataku['suhu'];
+          volumeTandon = dataku['vol_tandon'];
+          kuras = dataku['kuras'];
+          afterKuras = dataku['after_kuras'];
         });
       });
     });
@@ -157,15 +130,19 @@ class _MonitoringState extends State<Monitoring> {
                 SizedBox(
                   height: 20,
                 ),
-                history("assets/ic_nutrisi_history.png",
-                    "Pemberian Nutrisi Terakhir", nutrisi,
-                    value: kuras),
+                history(
+                  "assets/ic_nutrisi_history.png",
+                  "Pemberian Nutrisi Terakhir",
+                  afterKuras,
+                ),
                 SizedBox(
                   height: 25,
                 ),
-                history("assets/water_ic.png", "Pengurasan air terakhir",
-                    afterKuras,
-                    value: kuras),
+                history(
+                  "assets/water_ic.png",
+                  "Pengurasan air terakhir",
+                  afterKuras,
+                ),
                 SizedBox(
                   height: 50,
                 )

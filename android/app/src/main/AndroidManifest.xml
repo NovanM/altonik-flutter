@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_application_altonik">
    <application
-        android:label="flutter_application_altonik"
+        android:label="Altonik"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

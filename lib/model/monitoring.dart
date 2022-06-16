@@ -1,14 +1,14 @@
 part of 'model.dart';
 
 class MonitoringData {
-  int nutrisi;
-  int nutrisiA;
-  int nutrisiB;
-  int ph;
-  int phDown;
-  int phUP;
-  int suhu;
-  int volumeTandon;
+  var nutrisi;
+  var nutrisiA;
+  var nutrisiB;
+  var ph;
+  var phDown;
+  var phUP;
+  var suhu;
+  var volumeTandon;
   MonitoringData(
       {this.nutrisi,
       this.nutrisiA,

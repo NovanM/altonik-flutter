@@ -88,16 +88,18 @@ class _DrainState extends State<Drain> {
                     ),
                     sensor(
                         "assets/suhu_ic.png", "Suhu", suhu.toString() + " C"),
-                    sensor("assets/ph_ic.png", "Ph", "7.1"),
+                    sensor("assets/ph_ic.png", "Ph", ph.toString()),
                   ],
                 ),
                 doughnatChart("Air Tandon", 230, 200, volumeTandon),
                 SizedBox(
                   height: 20,
                 ),
-                history("assets/water_ic.png", "Pengurasan air terakhir",
-                    afterKuras,
-                    value: kuras),
+                history(
+                  "assets/water_ic.png",
+                  "Pengurasan air terakhir",
+                  afterKuras,
+                ),
                 SizedBox(
                   height: 50,
                 )

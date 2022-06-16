@@ -2,9 +2,9 @@ part of 'pages.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
     return Scaffold(
       body: Stack(
         children: [
@@ -82,7 +82,10 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Monitoring()),
+                      MaterialPageRoute(
+                          builder: (context) => Monitoring(
+                                databaseReference: databaseReference,
+                              )),
                     );
                   },
                   style: ElevatedButton.styleFrom(
