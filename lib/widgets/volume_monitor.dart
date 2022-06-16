@@ -8,6 +8,9 @@ class ChartData {
 }
 
 Widget doughnatChart(String name, double width, double height, int value) {
+  if (value == null) {
+    value = 0;
+  }
   double dataVol = 100;
   double currentDataVol = value.toDouble();
 

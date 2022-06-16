@@ -9,7 +9,10 @@ Widget sensor(String imagePath, String name, String value) {
         height: 70,
       ),
       Column(
-        children: [Text(name), Text(value)],
+        children: [
+          Text(name),
+          Text(value),
+        ],
       )
     ],
   );

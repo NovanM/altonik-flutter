@@ -13,7 +13,7 @@ class _MonitoringState extends State<Monitoring> {
   void initState() {
     super.initState();
     _dbref = FirebaseDatabase.instance.reference();
-    // _readDB_onechild();
+    _readDB_onechild();
     // _read_once();
     // oneChange();
     dataChange();
@@ -21,20 +21,27 @@ class _MonitoringState extends State<Monitoring> {
 
   DatabaseReference _dbref;
   String databasejson = '';
-  var datacek;
-  MonitoringData monitoringData;
+  var nutrisi;
+  var nutrisiA;
+  var nutrisiB;
+  var ph;
+  var phDown;
+  var phUP;
+  var suhu;
+  var volumeTandon;
+  var kuras;
+  var afterKuras;
 
   // ignore: non_constant_identifier_names
   _readDB_onechild() {
     _dbref
         .child("monitoring")
-        .child("suhu")
+        .child("sensorsatu")
         .once()
         .then((DataSnapshot dataSnapshot) {
       print("read " + dataSnapshot.value);
       setState(() {
         databasejson = dataSnapshot.value;
-        monitoringData.suhu = dataSnapshot.value;
       });
     });
   }
@@ -46,18 +53,21 @@ class _MonitoringState extends State<Monitoring> {
       print("read once" + dataSnapshot.value);
       setState(() {
         databasejson = dataSnapshot.value.toString();
-        datacek = dataSnapshot.value;
       });
     });
   }
 
   void oneChange() {
-    _dbref.child('monitoring').child('nutrisi_a').onValue.listen((Event event) {
-      double data = event.snapshot.value;
+    _dbref
+        .child('monitoring')
+        .child('sensorsatu')
+        .onValue
+        .listen((Event event) {
+      int data = event.snapshot.value;
 
       print('weight data: $data');
       setState(() {
-        monitoringData.nutrisiA = data.toInt();
+        suhu = data;
       });
     });
   }
@@ -66,17 +76,18 @@ class _MonitoringState extends State<Monitoring> {
     _dbref.child('monitoring').onValue.listen((event) {
       print(event.snapshot.value.toString());
       Map data = event.snapshot.value;
-      print(data);
       data.forEach((key, value) {
         setState(() {
-          monitoringData.nutrisi = data['nutrisi'];
-          monitoringData.nutrisiA = data['nutrisi_a'];
-          monitoringData.nutrisiB = data['nutrisi_b'];
-          monitoringData.ph = data['ph'];
-          monitoringData.phDown = data['ph_down'];
-          monitoringData.suhu = data['suhu'];
-          monitoringData.volumeTandon = data['vol_tandon'];
-          print(monitoringData);
+          nutrisi = data['nutrisi'];
+          nutrisiA = data['nutrisi_a'];
+          nutrisiB = data['nutrisi_b'];
+          ph = data['ph'];
+          phDown = data['ph_down'];
+          phUP = data['ph_up'];
+          suhu = data['suhu'];
+          volumeTandon = data['vol_tandon'];
+          kuras = data['kuras'];
+          afterKuras = data['after_kuras'];
         });
       });
     });
@@ -90,11 +101,18 @@ class _MonitoringState extends State<Monitoring> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Container(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
                   height: 50,
                 ),
-                Text("Monitoring Tanaman Pak Coy"),
+                Text(
+                  "Monitoring Tanaman Pak Coy",
+                  style: TextStyle(fontSize: 24),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   children: [
                     Image.asset(
@@ -102,16 +120,18 @@ class _MonitoringState extends State<Monitoring> {
                       width: 150,
                       height: 100,
                     ),
-                    sensor("assets/suhu_ic.png", "Suhu", "38 C"),
+                    sensor(
+                        "assets/suhu_ic.png", "Suhu", suhu.toString() + " C"),
                     sensor("assets/ph_ic.png", "Ph", "7.1"),
                   ],
                 ),
                 Row(
                   children: [
-                    doughnatChart("Air Tandon", 230, 200, 20),
+                    doughnatChart("Air Tandon", 230, 200, volumeTandon),
                     Column(
                       children: [
-                        sensor("assets/nutrisi_ic.png", "Nutrisi", "5 ppm"),
+                        sensor("assets/nutrisi_ic.png", "Nutrisi",
+                            nutrisi.toString() + " ppm"),
                         sensor("assets/usia_ic.png", "Usia", "7 hari")
                       ],
                     )
@@ -122,35 +142,33 @@ class _MonitoringState extends State<Monitoring> {
                 ),
                 Row(
                   children: [
-                    doughnatChart("Nutrisi A", 150, 150, 20),
+                    doughnatChart("Nutrisi A", 150, 150, nutrisiA),
                     Spacer(),
-                    doughnatChart("Nutrisi B", 150, 150, 20)
+                    doughnatChart("Nutrisi B", 150, 150, nutrisiB)
                   ],
                 ),
                 Row(
                   children: [
-                    doughnatChart("Ph UP", 150, 150, 20),
+                    doughnatChart("Ph UP", 150, 150, phUP),
                     Spacer(),
-                    doughnatChart("Ph Down", 150, 150, 20)
+                    doughnatChart("Ph Down", 150, 150, phDown)
                   ],
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 history("assets/ic_nutrisi_history.png",
-                    "Pemberian Nutrisi Terakhir"),
+                    "Pemberian Nutrisi Terakhir", nutrisi,
+                    value: kuras),
                 SizedBox(
                   height: 25,
                 ),
-                history("assets/water_ic.png", "Pengurasan air terakhir"),
-                SizedBox(
-                  height: 50,
-                ),
-                Text("data real"),
+                history("assets/water_ic.png", "Pengurasan air terakhir",
+                    afterKuras,
+                    value: kuras),
                 SizedBox(
                   height: 50,
                 )
-//tesing data realtime
               ],
             ),
           ),

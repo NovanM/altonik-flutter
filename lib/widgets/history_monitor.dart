@@ -1,12 +1,13 @@
 part of 'widget.dart';
 
-Widget history(
-  String imagePath,
-  String title,
-) {
+Widget history(String imagePath, String title, String counterDate,
+    {value = false}) {
+  DateTime now = DateTime.now();
+  String date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+
   return Container(
     width: double.infinity,
-    height: 60,
+    height: 70,
     decoration: BoxDecoration(
         color: historyColor, borderRadius: BorderRadius.circular(10)),
     child: Row(
@@ -20,9 +21,22 @@ Widget history(
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(title),
+            Text(
+              title,
+              style: TextStyle(fontSize: 20),
+            ),
             Row(
-              children: [Text(DateTime.now().toString())],
+              children: [
+                value
+                    ? Text(
+                        date,
+                        style: TextStyle(fontSize: 16),
+                      )
+                    : Text(
+                        counterDate,
+                        style: TextStyle(fontSize: 16),
+                      )
+              ],
             )
           ],
         )

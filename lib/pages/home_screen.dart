@@ -97,7 +97,12 @@ class HomeScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   child: Text('Pengurasan Air'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Drain()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     textStyle:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
