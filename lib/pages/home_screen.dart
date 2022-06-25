@@ -113,6 +113,24 @@ class HomeScreen extends StatelessWidget {
                     minimumSize: Size(300, 50),
                   ),
                 ),
+                SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  child: Text('Grafik Air'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Grafik()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    primary: mainColor,
+                    minimumSize: Size(300, 50),
+                  ),
+                ),
               ],
             ),
           )
