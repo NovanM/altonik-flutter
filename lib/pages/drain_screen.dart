@@ -57,6 +57,11 @@ class _DrainState extends State<Drain> {
 
   updatevalue() {
     _dbref.child("monitoring").update({"after_kuras": "2022-06-15 - 00:00"});
+    _dbref.child("monitoring").update({"kuras": true});
+    showDialog(
+        context: context,
+        builder: (context) =>
+            SnackBar(content: Text('Pengurasan akhir dilakukan')));
   }
 
   @override
@@ -83,7 +88,7 @@ class _DrainState extends State<Drain> {
                   children: [
                     Image.asset(
                       "assets/pakcoy_img.png",
-                      width: 150,
+                      width: 140,
                       height: 100,
                     ),
                     sensor(
@@ -92,6 +97,19 @@ class _DrainState extends State<Drain> {
                   ],
                 ),
                 doughnatChart("Air Tandon", 230, 200, volumeTandon),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  child: Text('Pengurasan Air'),
+                  onPressed: () => updatevalue(),
+                  style: ElevatedButton.styleFrom(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    primary: mainColor,
+                    minimumSize: Size(300, 50),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),

@@ -90,17 +90,17 @@ class _MonitoringState extends State<Monitoring> {
                   children: [
                     Image.asset(
                       "assets/pakcoy_img.png",
-                      width: 150,
+                      width: 140,
                       height: 100,
                     ),
                     sensor(
                         "assets/suhu_ic.png", "Suhu", suhu.toString() + " C"),
-                    sensor("assets/ph_ic.png", "Ph", "7.1"),
+                    sensor("assets/ph_ic.png", "Ph", ph.toString()),
                   ],
                 ),
                 Row(
                   children: [
-                    doughnatChart("Air Tandon", 230, 200, volumeTandon),
+                    doughnatChart("Air Tandon", 200, 200, volumeTandon),
                     Column(
                       children: [
                         sensor("assets/nutrisi_ic.png", "Nutrisi",

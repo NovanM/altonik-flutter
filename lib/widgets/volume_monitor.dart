@@ -61,7 +61,7 @@ Widget doughnatChart(String name, double width, double height, int value) {
       ),
       Text(
         "Volume $name",
-        style: TextStyle(color: Colors.black, fontSize: 24),
+        style: TextStyle(color: Colors.black, fontSize: 20),
       ),
     ],
   );
