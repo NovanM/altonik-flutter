@@ -19,13 +19,15 @@ Widget history(String imagePath, String title, String counterDate) {
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
             Row(
               children: [
                 Text(
                   counterDate ?? "",
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 )
               ],
             )

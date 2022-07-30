@@ -5,6 +5,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+
+    startAppDetection(BuildContext context) {
+      // _dbref.child("monitoring").update({"after_kuras": "2022-06-15 - 00:00"});
+      databaseReference.child("monitoring").update({"start_app": true});
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Grade()),
+      );
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -78,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                   height: 30,
                 ),
                 ElevatedButton(
-                  child: Text('Tanaman Pak Coy'),
+                  child: Text('Monitoring Selada'),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -117,13 +127,8 @@ class HomeScreen extends StatelessWidget {
                   height: 50,
                 ),
                 ElevatedButton(
-                  child: Text('Grafik Air'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Grafik()),
-                    );
-                  },
+                  child: Text('Kualitas Siap Panen'),
+                  onPressed: () => startAppDetection(context),
                   style: ElevatedButton.styleFrom(
                     textStyle:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

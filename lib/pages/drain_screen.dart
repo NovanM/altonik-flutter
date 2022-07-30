@@ -21,7 +21,7 @@ class _DrainState extends State<Drain> {
 
   DatabaseReference _dbref;
   var volumeTandon;
-  var suhu;
+  var kekeruhan;
   var ph;
   var kuras;
   var afterKuras;
@@ -32,7 +32,6 @@ class _DrainState extends State<Drain> {
         .child("vol_tandon")
         .once()
         .then((DataSnapshot dataSnapshot) {
-      print("read " + dataSnapshot.value);
       setState(() {
         volumeTandon = dataSnapshot.value;
       });
@@ -41,13 +40,12 @@ class _DrainState extends State<Drain> {
 
   void dataChange() {
     _dbref.child('monitoring').onValue.listen((event) {
-      print(event.snapshot.value.toString());
       Map data = event.snapshot.value;
       data.forEach((key, value) {
         setState(() {
           ph = data['ph'];
           volumeTandon = data['vol_tandon'];
-          suhu = data['suhu'];
+          kekeruhan = data['kekeruhan'];
           kuras = data['kuras'];
           afterKuras = data['after_kuras'];
         });
@@ -55,18 +53,31 @@ class _DrainState extends State<Drain> {
     });
   }
 
-  updatevalue() {
-    _dbref.child("monitoring").update({"after_kuras": "2022-06-15 - 00:00"});
-    _dbref.child("monitoring").update({"kuras": true});
-    showDialog(
-        context: context,
-        builder: (context) =>
-            SnackBar(content: Text('Pengurasan akhir dilakukan')));
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
+
+    updatevalue() {
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('d MMM – kk:mm').format(now);
+      _dbref.child("monitoring").update({"after_kuras": formattedDate});
+      _dbref.child("monitoring").update({"kuras": true});
+      _scaffoldKey.currentState
+          // ignore: deprecated_member_use
+          .showSnackBar(new SnackBar(
+        content: new Text('Pengurasan Air Dilakukan '),
+        backgroundColor: mainColor,
+      ));
+    }
+
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -78,7 +89,7 @@ class _DrainState extends State<Drain> {
                   height: 50,
                 ),
                 Text(
-                  "Pengurasan Air Tanaman Pak Coy",
+                  "Pengurasan Air ",
                   style: TextStyle(fontSize: 24),
                 ),
                 SizedBox(
@@ -88,11 +99,11 @@ class _DrainState extends State<Drain> {
                   children: [
                     Image.asset(
                       "assets/pakcoy_img.png",
-                      width: 140,
+                      width: 100,
                       height: 100,
                     ),
-                    sensor(
-                        "assets/suhu_ic.png", "Suhu", suhu.toString() + " C"),
+                    sensor("assets/water_ic.png", "Kekeruhan",
+                        kekeruhan.toString() + ' ntu'),
                     sensor("assets/ph_ic.png", "Ph", ph.toString()),
                   ],
                 ),
