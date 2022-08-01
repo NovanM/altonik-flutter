@@ -7,8 +7,8 @@ Widget sensor(String imagePath, String name, String value) {
     children: [
       Image.asset(
         imagePath,
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         fit: BoxFit.fitWidth,
       ),
       SizedBox(
