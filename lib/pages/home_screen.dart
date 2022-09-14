@@ -6,14 +6,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
-    startAppDetection(BuildContext context) {
-      // _dbref.child("monitoring").update({"after_kuras": "2022-06-15 - 00:00"});
-      databaseReference.child("monitoring").update({"start_app": true});
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Grade()),
-      );
-    }
+   
 
     return Scaffold(
       body: Stack(
@@ -88,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                   height: 30,
                 ),
                 ElevatedButton(
-                  child: Text('Monitoring Selada'),
+                  child: Text('Monitoring Pakcoy'),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -126,16 +119,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                ElevatedButton(
-                  child: Text('Kualitas Siap Panen'),
-                  onPressed: () => startAppDetection(context),
-                  style: ElevatedButton.styleFrom(
-                    textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                    primary: mainColor,
-                    minimumSize: Size(300, 50),
-                  ),
-                ),
+              
               ],
             ),
           )

@@ -9,51 +9,7 @@ class Monitoring extends StatefulWidget {
 }
 
 class _MonitoringState extends State<Monitoring> {
-  //tesing data realtime
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // _read_once();
-  //   // oneChange();
-  //   dataChange();
-  // }
-
-  // var nutrisi;
-  // var nutrisiA;
-  // var nutrisiB;
-  // var ph;
-  // var phDown;
-  // var phUP;
-  // var suhu;
-  // var volumeTandon;
-  // var afterKuras;
-  // var afterNutrisi;
-  // var hariTanam;
-  // var kekeruhan;
-
-  // void dataChange() {
-  //   widget.databaseReference.child('monitoring').onValue.listen((event) {
-  //     Map dataku = event.snapshot.value;
-  //     dataku.forEach((key, value) {
-  //       setState(() {
-  //         nutrisi = dataku['nutrisi'];
-  //         nutrisiA = dataku['nutrisi_a'];
-  //         nutrisiB = dataku['nutrisi_b'];
-  //         ph = dataku['ph'];
-  //         hariTanam = dataku['hari_tanam'];
-  //         kekeruhan = dataku['kekeruhan'];
-  //         phDown = dataku['ph_down'];
-  //         phUP = dataku['ph_up'];
-  //         suhu = dataku['suhu'];
-  //         volumeTandon = dataku['vol_tandon'];
-  //         afterNutrisi = dataku['after_nutrisi'];
-
-  //         afterKuras = dataku['after_kuras'];
-  //       });
-  //     });
-  //   });
-  // }
-
+  
   @override
   void dispose() {
     super.dispose();
@@ -93,7 +49,7 @@ class _MonitoringState extends State<Monitoring> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                'Loading.. \n\nMohon Tunggu Proses Deteksi Kualitas Panen Sedang Berjalan',
+                                'Loading.. \n\nMohon Tunggu Proses Sedang Berjalan',
                                 textAlign: TextAlign.center,
                                 style: labelText,
                               ),
@@ -152,19 +108,7 @@ class _MonitoringState extends State<Monitoring> {
                   });
                 }
 
-                TextEditingController hari = new TextEditingController(
-                    text: mapData['hari_tanam'].toString());
-                addHaritanam() {
-                  widget.databaseReference
-                      .child("monitoring")
-                      .update({"hari_tanam": int.parse(hari.text)});
-                  _scaffoldKey.currentState
-                      // ignore: deprecated_member_use
-                      .showSnackBar(new SnackBar(
-                    content: new Text('Update Hari Tanam'),
-                    backgroundColor: Colors.green,
-                  ));
-                }
+              
 
                 return Container(
                   child: Column(
@@ -172,7 +116,7 @@ class _MonitoringState extends State<Monitoring> {
                     children: [
                       SizedBox(height: 50),
                       Text(
-                        "Monitoring Tanaman Selada",
+                        "Monitoring Tanaman Pakcoy",
                         style: TextStyle(fontSize: 24),
                       ),
                       SizedBox(
@@ -191,32 +135,8 @@ class _MonitoringState extends State<Monitoring> {
                               mapData['ph'].toString()),
                         ],
                       ),
-                      (mapData['hari_tanam'] != null)
-                          ? TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Hari Tanaman Selada',
-                                labelStyle: labelText,
-                                prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Image.asset(
-                                    'assets/usia_ic.png',
-                                    fit: BoxFit.cover,
-                                    width: 20,
-                                  ),
-                                ),
-                                border: new OutlineInputBorder(
-                                    borderSide: BorderSide(color: mainColor),
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                              controller: hari,
-                              style: labelText,
-                            )
-                          : Container(),
-                      ElevatedButton(
-                        onPressed: () => addHaritanam(),
-                        child: Text('Perbaruhi'),
-                        style: ElevatedButton.styleFrom(primary: mainColor),
-                      ),
+                      
+                      
                       SizedBox(
                         height: 20,
                       ),

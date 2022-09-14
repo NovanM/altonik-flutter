@@ -11,4 +11,3 @@ part 'splash_screen.dart';
 part 'home_screen.dart';
 part 'monitiong_screen.dart';
 part 'drain_screen.dart';
-part 'kualitas_screen.dart';
